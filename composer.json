@@ -1,0 +1,11 @@
+{
+    "name": "user/isaac",
+    "description": "Simple app built by isaac ansah and offei",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "classmap": ["./"]
+    }
+}
