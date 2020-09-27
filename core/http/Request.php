@@ -9,7 +9,7 @@ class Request{
         return $_SERVER['REQUEST_URI'];
     }
 
-    public function method()
+    public static function method()
     {
         return $_SERVER['REQUEST_METHOD'];
     }
