@@ -10,3 +10,4 @@ Router::get('/login','SiteController@login');
 
 /* Post Routes */
 Router::post('/contact','ContactController@send');
+Router::post('/login','AuthController@login');

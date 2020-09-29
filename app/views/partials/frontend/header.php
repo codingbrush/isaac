@@ -8,7 +8,7 @@
     <link rel='stylesheet' href=<?php echo URLROOT . '/public/assets/css/bootstrap.min.css'; ?> >
     <title><?php echo $title?></title>
 </head>
-<body>
+<body style="height:100vh;">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
