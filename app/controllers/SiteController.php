@@ -23,4 +23,5 @@ class SiteController
     {
         return view('login');
     }
+
 }

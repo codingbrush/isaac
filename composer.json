@@ -4,7 +4,9 @@
     "type": "project",
     "license": "MIT",
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+      "ext-json": "*"
+    },
     "autoload": {
         "classmap": ["./"]
     }

@@ -80,6 +80,12 @@ class Router{
             if (!method_exists($controllers, $action)) {
                 throw new \Exception("Method $action does not exist in Controller $controller");
             }
+            foreach ($vars as $key => $value) {
+                if (is_numeric ($key)) {
+                    unset($vars[$key]);
+                }
+            }
+
             return $controllers->$action($vars);
         } catch (\Exception $e) {
             die(var_dump($e->getMessage()));
