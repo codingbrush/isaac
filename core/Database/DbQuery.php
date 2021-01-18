@@ -4,7 +4,7 @@ namespace Isaac\Core\Database;
 
 class DbQuery extends Database{
 
-    public $db, $dbh, $pdo;
+    public $db, $dbh, $pdo,$stmt;
 
     public function __construct()
     {
@@ -101,7 +101,6 @@ class DbQuery extends Database{
     }
 
     // Get result set as array of objects
-
     /**
      * resultset
      *

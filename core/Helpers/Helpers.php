@@ -29,6 +29,12 @@ function redirect(String $location, int $refresh = 1)
     exit;
 }
 
+/**
+ * clean
+ *
+ * @param  string $data
+ * @return string
+ */
 function clean(String $data)
 {
     return htmlentities(trim($data));
@@ -90,16 +96,30 @@ function isLoggedIn()
 
 function isAdmin()
 {
-    if ($_COOKIE['isAdmin'] == 'true') {
+    if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 'true') {
         return true;
     }
 
 }
 
+function isOfficer()
+{
+    if(isset($_SESSION['isOfficer']) && $_SESSION['isOfficer'] == 'true')
+        return true;
+}
+
+function isFarmer()
+{
+    if(isset($_SESSION['isFarmers']) && $_SESSION['isFarmers'] == 'true')
+        return true;
+}
+
 function is(string $uri)
 {
     if(is_string($uri)){
-        return ($_SERVER['REQUEST_URI'] == $uri) ? true : false;
+        $keywords = preg_split("/[\s\/]+/", $_SERVER['REQUEST_URI'],-1,PREG_SPLIT_NO_EMPTY); 
+        $url = "/".$keywords[0];
+        return ($url == $uri) ? true : false;
     }
         
 }

@@ -16,6 +16,9 @@ class UsersController extends Controller{
         $this->users = $this->model('Users');
     }
 
+    /**
+     *
+     */
     public function index()
     {
         $data = $this->users->getUsers();
@@ -77,10 +80,10 @@ class UsersController extends Controller{
         ];
 
         $result = $this->users->updateUser($id,$data);
-        if($data)
+        if($result)
         {
             session_create('success','User Updated Successfully');
-            return view('/users');
+            redirect('/users');
         }
     }
 }

@@ -59,7 +59,7 @@ class Router{
 
                  }
                  if ($match == false) {
-                     throw new \OutOfBoundsException("Url given does not exist");
+                    return redirect('/404');
                  }
 
              }

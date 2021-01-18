@@ -30,9 +30,18 @@ class AuthController extends Controller
             'email_err'    => '',
         ];
         if ($auth) {
-            $_SESSION['role'] = 'ADMIN';
+           if(isAdmin())
+           {
+                redirect('/dashboard');
+           }
+           elseif(isOfficer())
+           {
+                redirect('/officer/dashboard');
+           }elseif(isFarmer()){
+               redirect('/farmer/dashboard');
+           }
             //session_create('success',"Welcome,{$auth->firstname}");
-            redirect('/dashboard');
+           // redirect('/dashboard');
 
         } else {
 

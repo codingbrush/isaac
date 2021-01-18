@@ -12,7 +12,7 @@ class Users extends DbQuery
      *
      * @param  string $email
      * @param  string $password
-     * @return void
+     * @return boolean
      */
     public function authenticate(String $email, String $password)
     {
@@ -24,13 +24,28 @@ class Users extends DbQuery
             if (!password_verify($password, $hashed_password->password)) {
                 $_SESSION['password_err'] = "Password is incorrect";
                 return false;
-            } else {
-                // create session variables for use during user session
-                $_SESSION['name']       = $hashed_password->firstname . ' ' . $hashed_password->lastname;
-                $_SESSION['user_id']    = $hashed_password->id;
-                $_SESSION['isLoggedIn'] = 'true';
-                return true;
             }
+                //Get the user columns and roles
+                $user = $this->getUserById($hashed_password->id);
+            // create session variables for use during user session
+            $_SESSION['name']       = ucfirst($hashed_password->firstname) . ' ' . ucfirst($hashed_password->lastname);
+            $_SESSION['user_id']    = $hashed_password->id;
+            $_SESSION['isLoggedIn'] = 'true';
+            
+            switch ($user->title) {
+                case ($user->title === 'ADMIN'):
+                    $_SESSION['isAdmin'] = 'true';
+                    break;
+                case ($user->title === 'EXTENSION OFFICER'):
+                case ($user->title === 'DISTRICT OFFICER'):
+                    $_SESSION['isOfficer'] = 'true';
+                    break;
+                default:
+                    $_SESSION['isFarmer'] = 'true';
+            }
+
+                return true;
+
         } else {
             $_SESSION['email_err'] = "Incorrect Email";
             return false;
@@ -40,7 +55,9 @@ class Users extends DbQuery
 
     public function getUsers()
     {
-        $this->sql('SELECT * FROM users');
+        $id = $_SESSION['user_id'];
+        $this->sql('SELECT * FROM users where id != :id');
+        $this->bind(':id',$id);
         return $this->resultset();
     }
 
@@ -51,7 +68,7 @@ class Users extends DbQuery
         $this->bind(':firstname',$data['firstname']);
         $this->bind(':lastname',$data['lastname']);
         $this->bind(':email',$data['email']);
-        $this->bind(':password',$data['password']);
+        $this->bind(':password',password_hash($data['password'],PASSWORD_DEFAULT));
         $this->execute();
         $id = $this->db->lastInsertId();
         $role = $this->addUserRole($id,$data['role']);
@@ -81,6 +98,7 @@ class Users extends DbQuery
             session_destroy();
             return true;
         }
+        return false;
     }
 
     /**

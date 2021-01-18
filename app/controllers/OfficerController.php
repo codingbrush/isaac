@@ -3,28 +3,25 @@
 namespace Isaac\App\Controllers;
 use Isaac\Core\Helpers\Controller;
 
-class DashboardController extends Controller{
+class OfficerController extends Controller{
 
-    /**
-     * @var object
-     */
-    private $users,$reports;
-
+    public $users,$reports;
+    
     public function __construct() {
-        if(isLoggedIn() != 'true')
+        if(isLoggedIn() != 'true' && isOfficer() != 'true')
             redirect('/login');
         $this->users = $this->model('Users');
         $this->reports = $this->model('Reports');
     }
 
-    public function dashboard()
+    public function index()
     {
         $data = [
             'count_extensions' => $this->users->getNumberOfExtensionOfficers(),
             'count_farmers' => $this->users->getNumberOfFarmers(),
             'count_reports' => $this->reports->countReports()
         ];
-        //die(var_dump($data['count_extensions']->extension_officers));
-        return view('dashboard',$data);
+        return view('/officers/dashboard',$data);
     }
+
 }

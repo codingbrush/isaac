@@ -157,7 +157,7 @@
             <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
         </a>
             </li>
-            <li class=" nav-item <?php echo (is('/users/*')) ? 'active' : '' ; ?>"><a href="/users"><i class="feather icon-users"></i>
+            <li class=" nav-item <?php echo (is('/users')) ? 'active' : '' ; ?>"><a href="/users"><i class="feather icon-users"></i>
             <span class="menu-title" data-i18n="Users">USERS</span>
             <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
         </a>
