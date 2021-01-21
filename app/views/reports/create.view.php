@@ -11,7 +11,12 @@ require __DIR__.'../../partials/backend/header.view.php';
     <div class="content-wrapper">
         <div class="content-body">
             <div class="row">
+            
                 <div class="col" style="width:100vw;">
+                    <a href="/reports" class="btn btn-primary mb-3">
+                    <i class="feather icon-arrow-left mb-4 text-white font-medium-5"></i>
+                    BACK
+                    </a>
                     <form action="/reports" method="post">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                         <div class="form-group">
@@ -26,14 +31,14 @@ require __DIR__.'../../partials/backend/header.view.php';
 
                         <div class="form-group">
                             <label for="Content">Content</label>
-                            <textarea id="tinymceeditor" name="content" onsubmit="var content = tinymce.activeEditor.getContent();">
-                                <?php if(is('/reports/{id}')): ?>
-                                    
+                            <textarea id="tinymceeditor" name="content" >
+                                <?php if(is('/reports')): ?>
+                                    <?php echo($data[0]->content ?? ''); ?>
                                 <?php endif; ?>
                             </textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-block-md btn-lg btn-primary text-center">Submit</button>
+                        <button type="submit" class="btn btn-block-md btn-lg btn-primary text-center" id="buttonpost">Submit</button>
                         
                     </form>
                 </div>

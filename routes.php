@@ -13,6 +13,9 @@ Router::get('/users/{id}','UsersController@show');
 Router::get('/reports','ReportsController@index');
 Router::get('/reports/create','ReportsController@create');
 Router::get('/reports/{id}','ReportsController@edit');
+Router::get('/announcements','AnnouncementController@index');
+Router::get('/announcements/create','AnnouncementController@create');
+Router::get('/announcements/{id}','AnnouncementController@edit');
 
 /* dashboards  */
 Router::get('/officer/dashboard','OfficerController@index');
@@ -33,3 +36,7 @@ Router::post('/reports','ReportsController@save');
 
 Router::post('/create','UsersController@create');
 Router::post('/update/{id}','UsersController@update');
+
+Router::post('/announcements','AnnouncementController@store');
+Router::post('/announcements/{id}','AnnouncementController@destroy');
+Router::post('/reports/{id}','ReportsController@destroy');

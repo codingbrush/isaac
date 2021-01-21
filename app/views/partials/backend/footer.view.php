@@ -13,6 +13,8 @@
 <!-- BEGIN: Vendor JS-->
 <script src="/public/app-assets/vendors/js/vendors.min.js"></script>
 <script src="/public/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+<script src="/public/jquery.min.js"></script>
+<script src="/public/ckeditor/ckeditor.js"></script>
 <!-- BEGIN Vendor JS-->
 
 <!-- BEGIN: Page Vendor JS-->
@@ -36,7 +38,29 @@
         tinymce.init({
             selector: 'textarea#tinymceeditor'
         });
+        
     </script>
+
+<?php endif; ?>
+<?php if(is('/announcements') == 'true'): ?>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor 4
+        // instance, using default configuration.
+        CKEDITOR.replace( 'content' );
+    </script>
+    <script>
+ $(document).on('click', '#submit', function (event) {
+    event.preventDefault();
+    const editorData = editor.getData();
+    console.log(editorData);
+    $.post('/announcements', {content: editorData}, function (data, status, jqXHR) {
+        console.log(data);
+        $('.msg').html("Data saved successfully");
+    }).fail(function (response) {
+        $('.msg').html("Opps  Unable to save data");
+ });
+});     
+</script>
 <?php endif; ?>
 <!-- END: Page JS-->
 

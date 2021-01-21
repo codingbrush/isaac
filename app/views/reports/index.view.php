@@ -42,11 +42,13 @@ require __DIR__.'../../partials/backend/header.view.php';
                                 <td><?php echo ucfirst($report->firstname)." ".ucfirst($report->lastname); ?></td>
                                 <td><?php echo $report->title; ?></td>
                                 <td><?php echo $report->report_date; ?></td>
-                                <td>
+                                <td class="d-flex">
                                     <a href="/reports/<?php echo $report->id;?>" class="btn btn-icon square btn-primary"><i
                                             class="feather icon-edit"></i></a>
-                                    <a href="/reports/<?php echo $report->id;?>" class="btn btn-icon btn-round btn-danger"><i
-                                            class="feather icon-trash-2"></i></a>
+                                    <form action="/reports/<?php echo $report->id;?>" method="post" class="pl-1">
+                                    <button type="submit" class="btn btn-icon btn-round btn-danger"><i
+                                    class="feather icon-trash-2"></i></button>
+                                    </form> 
                                 </td>
                             </tr>
                             <?php endforeach; ?>

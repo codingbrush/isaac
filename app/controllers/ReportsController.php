@@ -28,7 +28,7 @@ class ReportsController extends Controller{
 
     public function save()
     {
-        die(var_dump($_POST));
+        //die(var_dump($_POST));
         //Filter the values sent by the user for XSS attacks
         $post     = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $title = clean($post['title']);
@@ -57,6 +57,18 @@ class ReportsController extends Controller{
         $data[] = $this->reports->getReportDetails($id);
         //dd($report);
         return view('reports/create',$data);
+    }
+
+    public function destroy($id)
+    {
+        $id = $id['id'];
+        $deleted = $this->reports->deleteReport($id);
+        if(!$deleted){
+            session_create('warning','Report Deleted');
+            redirect('/reports');
+        }
+        session_create('success','Report Deleted');    
+        redirect('/reports');
     }
 
 }

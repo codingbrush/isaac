@@ -39,6 +39,12 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/css/style.css">
     <!-- END: Custom CSS-->
 
+
+
+
+
+
+
 </head>
 <!-- END: Head-->
 
@@ -164,6 +170,12 @@
             </li>
             <li class=" nav-item <?php echo (is('/reports')) ? 'active' : '' ; ?>"><a href="/reports"><i class="feather icon-book-open"></i>
                     <span class="menu-title" data-i18n="Reports">REPORTS</span>
+                    <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
+                </a>
+            </li>
+            </li>
+            <li class=" nav-item <?php echo (is('/announcements')) ? 'active' : '' ; ?>"><a href="/announcements"><i class="feather icon-volume-1"></i>
+                    <span class="menu-title" data-i18n="Reports">ANNOUNCEMENTS</span>
                     <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
                 </a>
             </li>

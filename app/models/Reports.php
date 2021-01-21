@@ -19,6 +19,7 @@ class Reports extends DbQuery{
                    ');
         return $this->resultset();
     }
+    
     public function createReport($data)
     {
         $this->sql('INSERT INTO isaac.reports (title,content,report_date,user_id,date_created) VALUES (:title,:content,:report_date,:user_id,NOW())');
@@ -32,5 +33,12 @@ class Reports extends DbQuery{
         $this->sql('select * from isaac.reports where id = :id');
         $this->bind(':id',$id);
         return $this->single();
+    }
+
+    public function deleteReport($id)
+    {
+        $this->sql('delete from isaac.reports where id = :id');
+        $this->bind(':id',$id);
+        return $this->execute();
     }
 }
