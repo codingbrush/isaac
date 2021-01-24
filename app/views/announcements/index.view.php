@@ -42,10 +42,10 @@ require __DIR__.'../../partials/backend/header.view.php';
                                 <td><?php echo ucfirst($announcement->firstname)." ".ucfirst($announcement->lastname); ?></td>
                                 <td><?php echo html_entity_decode($announcement->title); ?></td>
                                 <!-- <td></td> -->
-                                <td>
+                                <td class="d-flex">
                                     <a href="/announcements/<?php echo $announcement->id;?>" class="btn btn-icon square btn-primary"><i
                                             class="feather icon-edit"></i></a>
-                                    <form action="/announcements/<?php echo $announcement->id;?>" method="post">
+                                    <form action="/announcements/<?php echo $announcement->id;?>" method="post" class="pl-1">
                                     <button type="submit" class="btn btn-icon btn-round btn-danger"><i
                                     class="feather icon-trash-2"></i></button>
                                     </form>

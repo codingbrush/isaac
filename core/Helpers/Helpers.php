@@ -120,8 +120,16 @@ function is(string $uri)
         $keywords = preg_split("/[\s\/]+/", $_SERVER['REQUEST_URI'],-1,PREG_SPLIT_NO_EMPTY); 
         $url = "/".$keywords[0];
         return ($url == $uri) ? true : false;
+
     }
         
+}
+
+function is_route(string $uri){
+    if(is_string($uri))
+    {
+        return ($uri === $_SERVER['REQUEST_URI']) ? true : false;
+    }
 }
 
 function dd($data)

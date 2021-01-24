@@ -16,6 +16,7 @@ class AnnouncementController extends Controller
 
         $this->announcements = $this->model('Announcement');
     }
+
     public function index()
     {
         $data = $this->announcements->getAnnouncement();
@@ -37,20 +38,18 @@ class AnnouncementController extends Controller
         $image   = $_FILES['image']['name'];
         $content = clean($_POST['content']);
         //dd($_FILES);
-        //$report_date = clean($post['report_date']);
-        //$fileType = $_FILES["image"]["type"];
-        // $fileSize = $_FILES["profile_image"]["size"];
-
-        // if ($fileSize / 1024 > "2048") {
-        //     //Its good idea to restrict large files to be uploaded.
-        //     echo "Filesize is not correct it should equal to 2 MB or less than 2 MB.";
-        //     exit();
-        // } //FileSize Checking
+        
         if (!isset($image)) {
             $imagename = '';
         } else {
             $targetdir = "public/imgs/";
-            $upFile = date("Y_m_d_H_i_s") . $_FILES["image"]["name"];
+            if(empty($_FILES["image"]["name"]))
+            {
+                $upFile = '';
+            }else{
+                $upFile = date("Y_m_d_H_i_s") . $_FILES["image"]["name"];
+            }
+            //$upFile = date("Y_m_d_H_i_s") . $_FILES["image"]["name"];
 
             if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetdir.$upFile)) {
@@ -59,13 +58,12 @@ class AnnouncementController extends Controller
             }           
         }
 
-        ///$profile_image = $upFile;
         $data = [
             'title'   => $title,
             'user_id' => $userid,
             'content' => $content,
             'image'   => $upFile,
-            //'report_date' => $report_date
+
         ];
         $saved = $this->announcements->createAnnouncement($data);
         if ($saved) {
@@ -83,6 +81,55 @@ class AnnouncementController extends Controller
         $data[] = $this->announcements->getAnnouncementDetails($id);
         //dd($report);
         return view('announcements/create', $data);
+    }
+
+    public function update($id)
+    {
+        $id = $id['id'];
+        $post    = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+         //dd($_POST);
+        $title   = clean($post['title']);
+        $userid  = clean($post['user_id']);
+        $image   = $_FILES['image']['name'];
+        $content = clean($_POST['content']);
+        //dd($_FILES);
+        
+        if (!isset($image)) {
+            $imagename = '';
+        } else {
+            $targetdir = "public/imgs/";
+            if(empty($_FILES["image"]["name"]))
+            {
+                $upFile = '';
+            }else{
+                $upFile = date("Y_m_d_H_i_s") . $_FILES["image"]["name"];
+            }
+
+            if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetdir.$upFile)) {
+                    $imagename = $upFile;
+                }
+            }           
+        }
+
+        $data = [
+            'id' => $id,
+            'title'   => $title,
+            'user_id' => $userid,
+            'content' => $content,
+            'image'   => $upFile,
+
+        ];
+        //dd($data);
+        //$image_available = $this->announcements->checkImage($id);
+        //dd($image_available);
+        $saved = $this->announcements->updateAnnouncement($data);
+        if ($saved) {
+            session_create('success', 'Announcement Created Successfully');
+            redirect('/announcements');
+        }
+        session_create('warning', 'Error Saving Data');
+        redirect('/announcements');
     }
 
     public function destroy($id)

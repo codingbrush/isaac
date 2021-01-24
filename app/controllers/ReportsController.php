@@ -33,7 +33,7 @@ class ReportsController extends Controller{
         $post     = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $title = clean($post['title']);
         $userid = clean($post['user_id']);
-        $content = clean($post['content']);
+        $content = clean($_POST['content']);
         $report_date = clean($post['report_date']);
         $data = [
             'title' => $title,
@@ -57,6 +57,33 @@ class ReportsController extends Controller{
         $data[] = $this->reports->getReportDetails($id);
         //dd($report);
         return view('reports/create',$data);
+    }
+
+    public function update($id)
+    {
+        $id = $id['id'];
+        //die(var_dump($_POST));
+        //Filter the values sent by the user for XSS attacks
+        $post     = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $title = clean($post['title']);
+        $userid = clean($post['user_id']);
+        $content = clean($_POST['content']);
+        $report_date = clean($post['report_date']);
+        $data = [
+            'id' => $id,
+            'title' => $title,
+            'user_id' => $userid,
+            'content' => $content,
+            'report_date' => $report_date
+        ];
+        //dd($data);
+        $saved = $this->reports->updateReport($data);
+        if($saved){
+            session_create('success','Report Created Successfully');
+            redirect('/reports');
+        }
+        session_create('warning','Error Saving Data');
+        redirect('/reports');
     }
 
     public function destroy($id)

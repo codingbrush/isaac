@@ -41,4 +41,15 @@ class Reports extends DbQuery{
         $this->bind(':id',$id);
         return $this->execute();
     }
+
+    public function updateReport($data)
+    {
+        $this->sql('update isaac.reports set title = :title , content = :content, report_date = :report_date, user_id = :user_id where id = :id');
+        $this->bind(':title',$data['title']);
+        $this->bind(':content',$data['content']);
+        $this->bind(':report_date',$data['report_date']);
+        $this->bind(':user_id',$data['user_id']);
+        $this->bind(':id',$data['id']);
+        return $this->execute();
+    }
 }

@@ -30,6 +30,24 @@ class Announcement extends DbQuery
         
     }
 
+    public function checkImage($id)
+    {
+        $this->sql('SELECT image from isaac.announcements where image IS NOT NULL AND id = :id  ');
+        $this->bind(':id',$id);
+        return $this->single();
+    }
+
+    public function updateAnnouncement($data)
+    {
+        $this->sql('UPDATE isaac.announcements set title = :title, content = :content,image = :image,user_id = :user_id where id = :id');
+        $this->bind(':title',$data['title']);
+        $this->bind(':content',$data['content']);
+        $this->bind(':image',$data['image']);
+        $this->bind(':user_id',$data['user_id']);
+        $this->bind(':id',$data['id']);
+        return $this->execute();
+    }
+
     public function deleteAnnouncement($id)
     {
         $this->sql('delete from isaac.announcements where id = :id');

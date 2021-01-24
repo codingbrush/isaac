@@ -31,18 +31,8 @@
 <?php if(is('/users')): ?>
     <script src="/public/assets/js/user.js"></script>
 <?php endif;?>
-<?php if(is('/reports') == 'true' ): ?>
 
-    <script src="/public/tinymce/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea#tinymceeditor'
-        });
-        
-    </script>
-
-<?php endif; ?>
-<?php if(is('/announcements') == 'true'): ?>
+<?php if(is('/announcements') == 'true' || is('/reports')): ?>
     <script>
         // Replace the <textarea id="editor1"> with a CKEditor 4
         // instance, using default configuration.

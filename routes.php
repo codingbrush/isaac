@@ -17,6 +17,9 @@ Router::get('/announcements','AnnouncementController@index');
 Router::get('/announcements/create','AnnouncementController@create');
 Router::get('/announcements/{id}','AnnouncementController@edit');
 
+/* profile */
+Router::get('/profile','ProfileController@index');
+/* end of the profile */
 /* dashboards  */
 Router::get('/officer/dashboard','OfficerController@index');
 Router::get('/farmer/dashboard','FarmerController@index');
@@ -38,5 +41,7 @@ Router::post('/create','UsersController@create');
 Router::post('/update/{id}','UsersController@update');
 
 Router::post('/announcements','AnnouncementController@store');
+Router::post('/announcements/update/{id}','AnnouncementController@update');
 Router::post('/announcements/{id}','AnnouncementController@destroy');
 Router::post('/reports/{id}','ReportsController@destroy');
+Router::post('/reports/update/{id}','ReportsController@update');

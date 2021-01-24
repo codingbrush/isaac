@@ -1,5 +1,11 @@
 <?php
-$title = 'Create Announcement';
+is_route('/announcements/create') ?  $title = 'Create Announcement' : $title = 'Edit Announcement';
+// if(is('/announcements/create') && empty($data))
+// {
+   // $title = 'Create Announcement';
+// }else{
+//     $title = 'Edit Announcement';
+// }
 require __DIR__ . '../../partials/backend/header.view.php';
 //var_dump($data);
 ?>
@@ -30,7 +36,7 @@ require __DIR__ . '../../partials/backend/header.view.php';
                     <i class="feather icon-arrow-left mb-4 text-white font-medium-5"></i>
                     BACK
                     </a>
-                    <form action="/announcements" method="post" enctype="multipart/form-data">
+                    <form action="<?php $id = $data[0]->id ?? ''; echo (is_route('/announcements/create')) ? '/announcements' :  '/announcements/update/'.$id; ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Title of Report</label>
@@ -38,7 +44,7 @@ require __DIR__ . '../../partials/backend/header.view.php';
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Image:</label>
-                            <input type="file" class="form-control" name="image" id="image" value="<?php echo $data[0]->image ?? ''; ?>" required>
+                            <input type="file" class="form-control" name="image" id="image" value="<?php echo $data[0]->image ?? ''; ?>" >
                         </div>
                         <div class="form-group">
                             <label for="content">Content</label>

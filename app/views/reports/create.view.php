@@ -1,5 +1,5 @@
 <?php
-$title = 'Create Report';
+is_route('/reports/create') ?  $title = 'Create Report' : $title = 'Edit Report';
 require __DIR__.'../../partials/backend/header.view.php';
 //var_dump($data);
 ?>
@@ -17,7 +17,7 @@ require __DIR__.'../../partials/backend/header.view.php';
                     <i class="feather icon-arrow-left mb-4 text-white font-medium-5"></i>
                     BACK
                     </a>
-                    <form action="/reports" method="post">
+                    <form action="<?php $id = $data[0]->id ?? ''; echo (is_route('/reports/create')) ? '/reports' :  '/reports/update/'.$id; ?>" method="post">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Title of Report</label>
@@ -31,11 +31,12 @@ require __DIR__.'../../partials/backend/header.view.php';
 
                         <div class="form-group">
                             <label for="Content">Content</label>
-                            <textarea id="tinymceeditor" name="content" >
+                            <textarea name="content" id="editor1" rows="10" cols="80" >
                                 <?php if(is('/reports')): ?>
                                     <?php echo($data[0]->content ?? ''); ?>
                                 <?php endif; ?>
                             </textarea>
+                           
                         </div>
 
                         <button type="submit" class="btn btn-block-md btn-lg btn-primary text-center" id="buttonpost">Submit</button>
