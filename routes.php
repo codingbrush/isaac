@@ -19,6 +19,7 @@ Router::get('/announcements/{id}','AnnouncementController@edit');
 
 /* profile */
 Router::get('/profile','ProfileController@index');
+Router::get('/profile/{id}','ProfileController@edit');
 /* end of the profile */
 /* dashboards  */
 Router::get('/officer/dashboard','OfficerController@index');

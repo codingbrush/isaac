@@ -35,13 +35,16 @@ class Users extends DbQuery
             switch ($user->title) {
                 case ($user->title === 'ADMIN'):
                     $_SESSION['isAdmin'] = 'true';
+                    $_SESSION['avatar'] = $hashed_password->avatar;
                     break;
                 case ($user->title === 'EXTENSION OFFICER'):
                 case ($user->title === 'DISTRICT OFFICER'):
                     $_SESSION['isOfficer'] = 'true';
+                    $_SESSION['avatar'] = $hashed_password->avatar;
                     break;
                 default:
                     $_SESSION['isFarmer'] = 'true';
+                    $_SESSION['avatar'] = $hashed_password->avatar;
             }
 
                 return true;
@@ -132,7 +135,7 @@ class Users extends DbQuery
     {
         $this->sql('SELECT 
                   u.id,u.firstname,
-                  u.lastname,u.email,
+                  u.lastname,u.email,u.avatar,
                   r.id as role_id,r.title 
                   FROM users u 
                   INNER JOIN user_role ur 
