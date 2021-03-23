@@ -11,5 +11,6 @@ session_start();
 use Isaac\Core\Http\Request;
 use Isaac\Core\Http\Router;
 
+//dd($_SESSION);
 $routeFile = DIRROOT. '\routes.php';
 Router::load('routes.php')->direct(Request::uri(),Request::method());

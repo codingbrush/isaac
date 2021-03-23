@@ -65,20 +65,34 @@ class Users extends DbQuery
     }
 
 
-    public function addUser($data)
+    /**
+     * @param $data
+     * @return int
+     */
+    public function addUser($data): int
     {
-        $this->sql('INSERT INTO users (firstname,lastname,email,password) VALUES(:firstname, :lastname, :email, :password)');
+        $this->sql('INSERT INTO isaac.users (firstname,lastname,email,password,activated) VALUES(:firstname, :lastname, :email, :password,:activated)');
         $this->bind(':firstname',$data['firstname']);
         $this->bind(':lastname',$data['lastname']);
         $this->bind(':email',$data['email']);
+       
         $this->bind(':password',password_hash($data['password'],PASSWORD_DEFAULT));
-        $this->execute();
-        $id = $this->db->lastInsertId();
-        $role = $this->addUserRole($id,$data['role']);
-        return $role;
+        $this->bind(':activated',true);
+        $user = $this->execute();
+        if($user){
+            $id = $this->db->lastInsertId();
+            $role = $this->addUserRole($id,$data['role']);
+            return $role;
+        }
+        return 0;
     }
 
-    public function addUserRole(string $userid,string $roleid)
+    /**
+     * @param string $userid
+     * @param string $roleid
+     * @return int
+     */
+    public function addUserRole(string $userid, string $roleid): int
     {
         $this->sql('INSERT INTO user_role (userfk,rolefk) VALUES(:userfk, :rolefk)');
         $this->bind(':userfk',$userid);
@@ -147,6 +161,13 @@ class Users extends DbQuery
         return $this->single();
     }
 
+    public function getUserPassword($id)
+    {
+        $this->sql('SELECT password, avatar from users where id = :id');
+        $this->bind(':id',$id);
+        return $this->single();
+    }
+
     public function updateUser($id,$data)
     {
         $this->sql('UPDATE users SET firstname=:firstname, lastname=:lastname, email=:email where id=:id');
@@ -155,6 +176,22 @@ class Users extends DbQuery
         $this->bind(':email',$data['email']);
         $this->bind(':id',$id);
         if ($this->execute() && $this->updateUserRole($id,$data['role'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateUserProfile($id,$data)
+    {
+        $this->sql('UPDATE users SET firstname=:firstname, lastname=:lastname, email=:email, avatar=:avatar, password=:password where id=:id');
+        $this->bind(':firstname',$data['firstname']);
+        $this->bind(':lastname',$data['lastname']);
+        $this->bind(':email',$data['email']);
+        $this->bind(':password',(empty($data['password'])) ? password_hash('password',PASSWORD_DEFAULT) : password_hash($data['password'],PASSWORD_DEFAULT) );
+        $this->bind(':avatar',$data['avatar']  );
+        $this->bind(':id',$id);
+        if ($this->execute()) {
             return true;
         } else {
             return false;
@@ -172,6 +209,13 @@ class Users extends DbQuery
             echo "PROBLEM";
             return false;
         }
+    }
+
+    public function deleteUser($id)
+    {
+        $this->sql('delete from isaac.users where id = :id');
+        $this->bind(':id',$id);
+        return $this->execute();
     }
 
 }

@@ -17,8 +17,6 @@ require __DIR__ . '../../partials/backend/header.view.php';
     <div class="content-wrapper">
         <div class="content-body">
             <div class="row">
-
-
                 <div class="col" style="width:100vw;">
                 <!--            show the session message    -->
             <?php if (isset($_SESSION['status'])): ?>
@@ -40,17 +38,15 @@ require __DIR__ . '../../partials/backend/header.view.php';
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Title of Report</label>
-                            <input type="text" class="form-control" name="title" id="titleinput" value="<?php echo $data[0]->title ?? ''; ?>" required>
+                            <input type="text" class="form-control" name="title" id="titleinput" value="<?php echo html_entity_decode($data[0]->title) ?? ''; ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Image:</label>
                             <input type="file" class="form-control" name="image" id="image" value="<?php echo $data[0]->image ?? ''; ?>" >
+                            <span><?php echo $data[0]->image ?? ''; ?></span>
                         </div>
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <!-- <textarea id="tinymceeditor" name="content" onsubmit="var content = tinymce.activeEditor.getContent();">
-
-                            </textarea> -->
                             <textarea name="content" id="editor1" rows="10" cols="80">
                                <?php if (is('/announcements')): ?>
                                     <?php echo ($data[0]->content ?? ''); ?>

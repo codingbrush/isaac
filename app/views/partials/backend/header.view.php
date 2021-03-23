@@ -143,21 +143,19 @@
                                         alt="img placeholder" style="height:40px;width:40px;border-radius:50%;">
                                 <?php else: ?>
                                     <img class="img-fluid"
-                                        src="/public/imgs/<?php echo $data[0]->avatar; ?>"
-                                        alt="img placeholder" style="height:40px;width:40px;">
+                                        src="/public/imgs/<?php echo $_SESSION['avatar']; ?>"
+                                        alt="img placeholder" style="height:40px;width:40px;border-radius:50%;">
                                 <?php endif; ?></span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i
-                                        class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item"
-                                    href="#"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item"
-                                    href="#"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item"
-                                    href="#"><i class="feather icon-message-square"></i> Chats</a>
+                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="/profile"><i
+                                        class="feather icon-user"></i> Edit Profile</a>
+
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i
                                         class="feather icon-power"></i>
                                     <form action="/logout" method="post">
                                         <input type="hidden" name="logout" value="logout">
                                         <button type="submit"
-                                            style="border:none;background-color: transparent;color:white;button:hover:#7468F0;">LOGOUT</button>
+                                            style="border:none;background-color: transparent;color:black;button:hover:color:white;button:hover:#7468F0;">LOGOUT</button>
                                     </form>
                                 </a>
                             </div>
@@ -172,7 +170,7 @@
     <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="/dashboard">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="#">
                         <div class="brand-logo"></div>
                         <h2 class="brand-text mb-0"></h2>
                     </a></li>
@@ -185,36 +183,48 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item <?php echo (is('/dashboard')) ? 'active' : '' ; ?>"><a href="/dashboard"><i
+                <li class=" nav-item <?php if(is('/dashboard')): ?><?php echo 'active'; ?><?php elseif(is('/officer/dashboard')):?><?php echo 'active'; ?><?php elseif(is('/farmer/dashboard')):?><?php echo 'active'; ?><?php endif;?>">
+                    <a href="<?php if(isOfficer()):?><?php echo '/officer/dashboard'; ?><?php elseif(isAdmin()):?><?php echo '/dashboard'; ?><?php elseif(isFarmer()):?><?php echo '/farmer/dashboard'; ?><?php endif;?>"><i
                             class="feather icon-home"></i>
                         <span class="menu-title" data-i18n="Dashboard">DASHBOARD</span>
                         <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
                     </a>
                 </li>
+                <?php if(isAdmin()): ?>
                 <li class=" nav-item <?php echo (is('/users')) ? 'active' : '' ; ?>"><a href="/users"><i
                             class="feather icon-users"></i>
                         <span class="menu-title" data-i18n="Users">USERS</span>
                         <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if(isAdmin() || isOfficer()): ?>
                 <li class=" nav-item <?php echo (is('/reports')) ? 'active' : '' ; ?>"><a href="/reports"><i
                             class="feather icon-book-open"></i>
                         <span class="menu-title" data-i18n="Reports">REPORTS</span>
                         <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
                     </a>
                 </li>
-                </li>
+                <?php endif; ?>
+                <?php if(isAdmin() || isOfficer()):?>
                 <li class=" nav-item <?php echo (is('/announcements')) ? 'active' : '' ; ?>"><a href="/announcements"><i
                             class="feather icon-volume-1"></i>
                         <span class="menu-title" data-i18n="Reports">ANNOUNCEMENTS</span>
                         <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
                     </a>
                 </li>
+                <?php endif; ?>
                 <li class=" nav-item <?php echo (is('/profile')) ? 'active' : '' ; ?>"><a href="/profile"><i
                             class="feather icon-user-check"></i>
                         <span class="menu-title" data-i18n="Reports">PROFILE</span>
                         <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
                     </a>
+                </li>
+                <li class="nav-item">
+                    <form action="/logout" method="post" class="pr-2">
+                        <input type="hidden" name="logout" value="logout">
+                        <button type="submit" class="btn "><i class="pr-2 feather icon-power"></i><span class="menu-title" data-i18n="Reports">LOGOUT</span></button>
+                    </form>
                 </li>
                 <!-- <li class=" nav-item"><a href="#"><i class="feather icon-zap"></i><span class="menu-title" data-i18n="Starter kit">Starter kit</span></a>
                 <ul class="menu-content">

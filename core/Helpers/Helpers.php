@@ -94,38 +94,43 @@ function isLoggedIn()
     }
 }
 
-function isAdmin()
+function isAdmin(): bool
 {
     if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 'true') {
         return true;
+    }else{
+        return false;
     }
 
 }
 
-function isOfficer()
+function isOfficer(): bool
 {
     if(isset($_SESSION['isOfficer']) && $_SESSION['isOfficer'] == 'true')
         return true;
+    else
+        return false;
 }
 
-function isFarmer()
+function isFarmer(): bool
 {
-    if(isset($_SESSION['isFarmers']) && $_SESSION['isFarmers'] == 'true')
+    if(isset($_SESSION['isFarmer']) && $_SESSION['isFarmer'] == 'true')
         return true;
 }
 
-function is(string $uri)
+function is(string $uri): bool
 {
     if(is_string($uri)){
         $keywords = preg_split("/[\s\/]+/", $_SERVER['REQUEST_URI'],-1,PREG_SPLIT_NO_EMPTY); 
         $url = "/".$keywords[0];
-        return ($url == $uri) ? true : false;
+        return $url == $uri;
 
     }
         
 }
 
-function is_route(string $uri){
+function is_route(string $uri): bool
+{
     if(is_string($uri))
     {
         return ($uri === $_SERVER['REQUEST_URI']) ? true : false;

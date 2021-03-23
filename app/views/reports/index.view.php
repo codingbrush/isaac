@@ -43,6 +43,7 @@ require __DIR__.'../../partials/backend/header.view.php';
                                 <td><?php echo $report->title; ?></td>
                                 <td><?php echo $report->report_date; ?></td>
                                 <td class="d-flex">
+                                <a href="/reports/details/<?php echo $report->id;?>" class="btn btn-success btn-icon square mr-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Report"><i class="feather icon-file"></i></a>
                                     <a href="/reports/<?php echo $report->id;?>" class="btn btn-icon square btn-primary"><i
                                             class="feather icon-edit"></i></a>
                                     <form action="/reports/<?php echo $report->id;?>" method="post" class="pl-1">

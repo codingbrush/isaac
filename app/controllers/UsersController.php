@@ -21,7 +21,7 @@ class UsersController extends Controller{
      */
     public function index()
     {
-        $data = $this->users->getUsers();
+        $data['users'] = $this->users->getUsers();
 //        die(var_dump($data));
         return view('users/index',$data);
     }
@@ -50,6 +50,10 @@ class UsersController extends Controller{
         {
             session_create('success','User Created');
             $this->index();
+        }else{
+            session_create('warning','Error Saving Data');
+            //return view('users/index');
+            redirect('/users');
         }
 
     }
@@ -85,5 +89,17 @@ class UsersController extends Controller{
             session_create('success','User Updated Successfully');
             redirect('/users');
         }
+    }
+
+    public function delete($id)
+    {
+        $id = $id['id'];
+        $deleted = $this->users->deleteUser($id);
+        if($deleted){
+            session_create('success','User deleted Successfully');
+            redirect('/users');
+        }
+        session_create('warning','Error Deleting Data');
+        redirect('/users');
     }
 }

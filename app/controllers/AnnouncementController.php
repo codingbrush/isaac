@@ -24,6 +24,14 @@ class AnnouncementController extends Controller
         return view('announcements/index', $data);
     }
 
+    public function show($id)
+    {
+        $id = $id['id'];
+        //dd($id);
+        $data[] = $this->announcements->getAnnouncementDetails($id);
+
+        return view('announcements/show',$data);
+    }
     public function create()
     {
         return view('announcements/create');
@@ -93,17 +101,19 @@ class AnnouncementController extends Controller
         $image   = $_FILES['image']['name'];
         $content = clean($_POST['content']);
         //dd($_FILES);
-        
-        if (!isset($image)) {
-            $imagename = '';
+        $image_available = $this->announcements->checkImage($id);
+        //dd($image_available->image);
+        $data_img = (!empty($image_available->image)) ? $image_available->image : NULL;
+        if (empty($image)) {
+            $upFile = $data_img;
         } else {
             $targetdir = "public/imgs/";
-            if(empty($_FILES["image"]["name"]))
-            {
-                $upFile = '';
-            }else{
+            // if(empty($_FILES["image"]["name"]))
+            // {
+            //     $upFile = '';
+            // }else{
                 $upFile = date("Y_m_d_H_i_s") . $_FILES["image"]["name"];
-            }
+            //}
 
             if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetdir.$upFile)) {

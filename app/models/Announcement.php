@@ -9,7 +9,7 @@ class Announcement extends DbQuery
     public function getAnnouncement()
     {
         $this->sql('SELECT
-        u.firstname,u.lastname,a.id, a.title,a.date_created
+        u.firstname,u.lastname,a.id, a.title,a.content,a.image,a.date_created
         FROM isaac.users u
         INNER JOIN isaac.announcements a ON a.user_id = u.id');
         return $this->resultset();

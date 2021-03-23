@@ -17,7 +17,11 @@ class ReportsController extends Controller{
 
     public function index()
     {
-        $data = $this->reports->getReports();
+        if($_SESSION['isOfficer'] == true){
+            $data = $this->reports->getReportsById(clean($_SESSION['user_id']));
+        }else{
+            $data = $this->reports->getReports();
+        }
         return view('reports/index',$data);
     }
 
@@ -57,6 +61,15 @@ class ReportsController extends Controller{
         $data[] = $this->reports->getReportDetails($id);
         //dd($report);
         return view('reports/create',$data);
+    }
+
+    public function show($id)
+    {
+        $id = $id['id'];
+        //dd($id);
+        $data[] = $this->reports->getReportDetails($id);
+        //dd($report);
+        return view('reports/show',$data);
     }
 
     public function update($id)

@@ -26,15 +26,15 @@ require __DIR__.'../../partials/backend/header.view.php';
                     </div>
                     <?php endif;?>
                     <!--            end of session message-->
-                    <a class="btn btn-primary" href="/reports/create">
+                    <!-- <a class="btn btn-primary" href="/reports/create">
                         <i class="feather icon-plus"></i> Add New
-                    </a>
+                    </a> -->
 
                     <div class="card mt-2" >
                         <div class="card-header mx-auto pb-0">
                             <div class="row m-0">
                                 <div class="col-sm-12 text-center">
-                                    <h4><?php echo $_SESSION['name']; ?></h4>
+                                    <h4><strong><?php echo $_SESSION['name']; ?></strong></h4>
                                 </div>
                                 <div class="col-sm-12 text-center">
                                     <p class=""><?php echo $data[0]->title; ?></p>
@@ -43,7 +43,7 @@ require __DIR__.'../../partials/backend/header.view.php';
                         </div>
                         <div class="card-content">
                             <div class="card-body text-center mx-auto">
-                                <div class="avatar" style="height:20rem;width:20rem;">
+                                <div class="avatar">
                                 <?php if(!$data[0]->avatar): ?>
                                     <img class="img-fluid"
                                         src="/public/imgs/avataaars.png"
@@ -62,11 +62,11 @@ require __DIR__.'../../partials/backend/header.view.php';
                                    
                                     <div class="following">
                                         <p class="font-weight-bold font-medium-2 mb-0">
-                                            <a href="/profile/<?php echo $data[0]->id; ?>" class="btn btn-md btn-outline-primary">
+                                            <a href="/profile/<?php echo $data[0]->id; ?>" class="btn btn-md btn-primary btn-block">
                                             <i class="feather icon-edit"></i>
                                             </a>
                                         </p>
-                                        <span class="">Edit</span>
+                                        <span class="">EDIT</span>
                                     </div>
                                 </div>
                                 <!-- <button

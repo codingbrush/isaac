@@ -8,12 +8,21 @@ class FarmerController extends Controller{
     public function __construct() {
         if(isLoggedIn() != 'true' && isOfficer() != 'true')
             redirect('/login');
-        $this->officer = $this->model('Users');
+        $this->users = $this->model('Users');
+        $this->reports = $this->model('Reports');
+        $this->announcements = $this->model('Announcement');
     }
+
 
     public function index()
     {
-        return view('/officers/dashboard');
+        $data = [
+            'count_extensions' => $this->users->getNumberOfExtensionOfficers(),
+            'count_farmers' => $this->users->getNumberOfFarmers(),
+            'count_reports' => $this->reports->countReports(),
+            'announcements' => $this->announcements->getAnnouncement()
+        ];
+        return view('/farmers/dashboard',$data);
     }
 
 }

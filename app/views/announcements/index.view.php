@@ -23,10 +23,11 @@ require __DIR__.'../../partials/backend/header.view.php';
             </div>
             <?php endif;?>
             <!--            end of session message-->
-            <a class="btn btn-primary" href="/announcements/create">
+            <?php if($_SESSION['isOfficer'] == true) :?>
+            <a class="btn btn-primary d-none" href="/announcements/create">
                 <i class="feather icon-plus"></i> Add New
             </a>
-
+            <?php endif;?>
             <div class="row mt-1">
                 <div class="col">
                     <table class="table table-hover-animation table-bordered thead-dark">
@@ -43,13 +44,15 @@ require __DIR__.'../../partials/backend/header.view.php';
                                 <td><?php echo html_entity_decode($announcement->title); ?></td>
                                 <!-- <td></td> -->
                                 <td class="d-flex">
-                                    <a href="/announcements/<?php echo $announcement->id;?>" class="btn btn-icon square btn-primary"><i
+                                <a href="announcements/detail/<?php echo $announcement->id?>" class="btn btn-primary btn-icon square" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><i class="feather icon-file"></i></a>
+                                <?php if($_SESSION['isOfficer'] == true) :?>
+                                    <a href="/announcements/<?php echo $announcement->id;?>" class="d-none btn btn-icon square btn-primary"><i
                                             class="feather icon-edit"></i></a>
-                                    <form action="/announcements/<?php echo $announcement->id;?>" method="post" class="pl-1">
+                                    <form action="/announcements/<?php echo $announcement->id;?>" method="post" class="d-none pl-1">
                                     <button type="submit" class="btn btn-icon btn-round btn-danger"><i
                                     class="feather icon-trash-2"></i></button>
                                     </form>
-                                    
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

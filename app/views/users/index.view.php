@@ -37,7 +37,7 @@ require __DIR__.'../../partials/backend/header.view.php';
                         <th>Modify</th>
                         </thead>
                         <tbody>
-                        <?php foreach($data as $user): ?>
+                        <?php foreach($data['users'] as $user): ?>
                         <tr>
                             <td><?php echo $user->firstname.' '.$user->lastname; ?></td>
                             <td><?php echo $user->email; ?></td>
@@ -46,9 +46,11 @@ require __DIR__.'../../partials/backend/header.view.php';
                             <?php else: ?>
                             <td><button type="button" class="btn btn-icon rounded-circle btn-warning mr-1 mb-1 waves-effect waves-light"><i class="feather icon-x"></i></button></td>
                             <?php endif; ?>
-                            <td id="modify">
+                            <td id="modify" class="d-flex">
                                 <a href="/users/<?php echo $user->id; ?>" class="btn btn-icon square btn-primary" id="edit"><i class="feather icon-edit none"></i></a>
-                                <a href="#" class="btn btn-icon btn-round btn-danger"><i class="feather icon-trash-2 none"></i></a>
+                                <form action="/users/delete/<?php echo $user->id; ?>" method="post" class="pl-1">
+                                    <button class="btn btn-icon btn-round btn-danger" type="submit"><i class="feather icon-trash-2 none"></i></button>
+                                </form>
                             </td>
                         </tr>
                         <?php endforeach; ?>

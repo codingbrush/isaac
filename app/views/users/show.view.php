@@ -26,6 +26,10 @@ require __DIR__.'../../partials/backend/header.view.php';
             <div class="container w-70">
                 <div class="row">
                     <div class="col" style="width:100vw;">
+                    <a href="/users" class="btn btn-primary mb-3">
+                    <i class="feather icon-arrow-left mb-4 text-white font-medium-5"></i>
+                    BACK
+                    </a>
                         <form action="/update/<?php echo $data[0]->id?>" method="post">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">First Name</label>

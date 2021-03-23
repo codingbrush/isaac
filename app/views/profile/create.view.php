@@ -1,5 +1,5 @@
 <?php
-is_route('/reports/create') ?  $title = 'Create Report' : $title = 'Edit Report';
+is_route('/profile/create') ?  $title = 'Create Report' : $title = 'Edit Report';
 require __DIR__.'../../partials/backend/header.view.php';
 //var_dump($data);
 ?>
@@ -13,30 +13,36 @@ require __DIR__.'../../partials/backend/header.view.php';
             <div class="row">
             
                 <div class="col" style="width:100vw;">
-                    <a href="/reports" class="btn btn-primary mb-3">
+                    <a href="/profile" class="btn btn-primary mb-3">
                     <i class="feather icon-arrow-left mb-4 text-white font-medium-5"></i>
                     BACK
                     </a>
-                    <form action="<?php $id = $data[0]->id ?? ''; echo (is_route('/reports/create')) ? '/reports' :  '/reports/update/'.$id; ?>" method="post">
+                    <form action="<?php $id = $data[0]->id ?? ''; echo (is_route('/profile/create')) ? '/profile' :  '/profile/update/'.$id; ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Title of Report</label>
-                            <input type="text" class="form-control" name="title" id="titleinput" value="<?php echo $data[0]->title ?? ''; ?>" required>
+                            <label for="exampleInputPassword1">First Name:</label>
+                            <input type="text" class="form-control" name="firstname" id="firstnameinput" value="<?php echo $data[0]->firstname ?? ''; ?>" >
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Report Date</label>
-                            <input type="date" class="form-control" name="report_date" id="report_date" value="<?php echo $data[0]->report_date ?? ''; ?>" required>
+                            <label for="exampleInputPassword1">Last Name:</label>
+                            <input type="text" class="form-control" name="lastname" id="lastnameinput" value="<?php echo $data[0]->lastname ?? ''; ?>" >
                         </div>
 
                         <div class="form-group">
-                            <label for="Content">Content</label>
-                            <textarea name="content" id="editor1" rows="10" cols="80" >
-                                <?php if(is('/reports')): ?>
-                                    <?php echo($data[0]->content ?? ''); ?>
-                                <?php endif; ?>
-                            </textarea>
-                           
+                            <label for="exampleInputPassword1">Email:</label>
+                            <input type="email" class="form-control" name="email" id="emailInput" value="<?php echo $data[0]->email ?? ''; ?>" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password:</label>
+                            <input type="password" class="form-control" name="password" id="passwordInput" min="8">
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="exampleInputPassword1">Image Upload:</label>
+                            <input type="file" class="form-control" name="avatar" id="avatar" >
+                            <span>Current Image Name: <?php echo $data[0]->avatar ?? ''; ?></span>
                         </div>
 
                         <button type="submit" class="btn btn-block-md btn-lg btn-primary text-center" id="buttonpost">Submit</button>

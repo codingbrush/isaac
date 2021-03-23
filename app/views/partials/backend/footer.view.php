@@ -11,9 +11,16 @@
 
 
 <!-- BEGIN: Vendor JS-->
+
 <script src="/public/app-assets/vendors/js/vendors.min.js"></script>
 <script src="/public/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
 <script src="/public/jquery.min.js"></script>
+<script src="/public/tooltip.js"></script>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 <script src="/public/ckeditor/ckeditor.js"></script>
 <!-- BEGIN Vendor JS-->
 
