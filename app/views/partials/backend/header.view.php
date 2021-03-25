@@ -198,6 +198,14 @@
                     </a>
                 </li>
                 <?php endif; ?>
+                <?php if(isOfficer()) :?>
+                    <li class=" nav-item <?php echo (is('/farmers')) ? 'active' : '' ; ?>"><a href="/farmers"><i
+                            class="feather icon-users"></i>
+                        <span class="menu-title" data-i18n="Farmers">FARMERS</span>
+                        <!-- <span class="badge badge badge-warning badge-pill float-right">2</span> -->
+                    </a>
+                </li>
+                <?php endif;?>
                 <?php if(isAdmin() || isOfficer()): ?>
                 <li class=" nav-item <?php echo (is('/reports')) ? 'active' : '' ; ?>"><a href="/reports"><i
                             class="feather icon-book-open"></i>

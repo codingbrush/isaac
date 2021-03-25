@@ -114,8 +114,10 @@ function isOfficer(): bool
 
 function isFarmer(): bool
 {
-    if(isset($_SESSION['isFarmer']) && $_SESSION['isFarmer'] == 'true')
+    if(isset($_SESSION['isFarmer']) && $_SESSION['isFarmer'] == 'true'){
         return true;
+    }
+    return false;
 }
 
 function is(string $uri): bool

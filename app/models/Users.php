@@ -81,7 +81,7 @@ class Users extends DbQuery
         $user = $this->execute();
         if($user){
             $id = $this->db->lastInsertId();
-            $role = $this->addUserRole($id,$data['role']);
+            $role = $this->addUserRole($id,$data['role'],$data['created_by']);
             return $role;
         }
         return 0;
@@ -92,11 +92,12 @@ class Users extends DbQuery
      * @param string $roleid
      * @return int
      */
-    public function addUserRole(string $userid, string $roleid): int
+    public function addUserRole(string $userid, string $roleid, string $created_by): int
     {
-        $this->sql('INSERT INTO user_role (userfk,rolefk) VALUES(:userfk, :rolefk)');
+        $this->sql('INSERT INTO user_role (userfk,rolefk,created_by) VALUES(:userfk, :rolefk, :created_by)');
         $this->bind(':userfk',$userid);
         $this->bind(':rolefk',$roleid);
+        $this->bind(':created_by',$created_by);
         $this->execute();
         return $this->rowCount();
     }
@@ -159,6 +160,22 @@ class Users extends DbQuery
                   WHERE u.id= :id');
         $this->bind(':id',$id);
         return $this->single();
+    }
+
+    public function getFarmerById($id)
+    {
+        $this->sql('SELECT 
+                  u.id,u.firstname,u.activated,
+                  u.lastname,u.email,u.avatar,
+                  r.id as role_id,r.title 
+                  FROM users u 
+                  INNER JOIN user_role ur 
+                  ON ur.userfk = u.id
+                  INNER JOIN role r
+                  ON r.id = ur.rolefk
+                  WHERE ur.created_by= :id');
+        $this->bind(':id',$id);
+        return $this->resultset();
     }
 
     public function getUserPassword($id)

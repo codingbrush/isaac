@@ -74,6 +74,48 @@ require_once __DIR__.'../../partials/backend/header.view.php'; ?>
                     <!--                </div>-->
 
                 </div>
+                <div class="row mt-3">
+                    <div class="col-md-12 col-12">
+                    
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">ANNOUCEMENTS!!</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    THE LATEST ANNOUCEMENTS ARE AT THE TOP
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Name</th>
+                                                <th>Author</th>
+                                                <th>Modify</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($data['announcements'] as $announcement): ?>
+                                            <tr class="">
+                                                <td >
+                                                <img class="rounded-circle" style="width:50px;height:50px;background-size:contain" src="/public/imgs/<?php echo $announcement->image?>" alt="announcement image">
+                                                </td>
+                                                <td><h5 ><?php echo html_entity_decode($announcement->title); ?></h5></td>
+                                                <td><?php echo ucfirst($announcement->firstname)." ".ucfirst($announcement->lastname); ?></td>
+                                                <td>
+                                                <a href="/announcements/detail/<?php echo $announcement->id?>" class="btn btn-primary btn-icon square" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><i class="feather icon-file"></i></a>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
             </div>
         </div>
     </div>

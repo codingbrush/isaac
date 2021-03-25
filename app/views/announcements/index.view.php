@@ -44,7 +44,7 @@ require __DIR__.'../../partials/backend/header.view.php';
                                 <td><?php echo html_entity_decode($announcement->title); ?></td>
                                 <!-- <td></td> -->
                                 <td class="d-flex">
-                                <a href="announcements/detail/<?php echo $announcement->id?>" class="btn btn-primary btn-icon square" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top"><i class="feather icon-file"></i></a>
+                                <a href="announcements/detail/<?php echo $announcement->id?>" class="btn btn-primary btn-icon square" data-toggle="tooltip" data-placement="top" title="" data-original-title="View Announcement"><i class="feather icon-file"></i></a>
                                 <?php if($_SESSION['isOfficer'] == true) :?>
                                     <a href="/announcements/<?php echo $announcement->id;?>" class="d-none btn btn-icon square btn-primary"><i
                                             class="feather icon-edit"></i></a>
